@@ -6,10 +6,11 @@ import { IoMdEyeOff, IoMdEye } from "react-icons/io";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
+import { getDatabase, ref, set } from "firebase/database";
 
 const Registration = () => {
     const auth = getAuth();
-
+    const db = getDatabase();
     // let emailRegx="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$";
     let dispatch =useDispatch();
     let navigate = useNavigate();
@@ -35,16 +36,22 @@ const Registration = () => {
         if (!password) {
             setPassworderr("Password is required")
         }
-        else if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(password)) {
-            setPassworderr('Password should be minimum 8 characters,1 letter & 1 number')
-        }
+        // else if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(password)) {
+        //     setPassworderr('Password should be minimum 8 characters,1 letter & 1 number')
+        // }
         else {
             createUserWithEmailAndPassword(auth, email, password)
                 .then((user) => {
+                    set(ref(db, 'users/' + user.user.uid), {
+                        fullname: name,
+                        email: email,
+                        profile_picture : "images/default-pic.jpg"
+                      });
                     sendEmailVerification(auth.currentUser)
                         .then(() => {
                             updateProfile(auth.currentUser, {
-                                displayName: name, photoURL: "https://example.com/jane-q-user/profile.jpg"
+                                displayName: name,
+                                photoURL: "https://example.com/jane-q-user/profile.jpg"
                             }).then(() => {
                                 // Profile updated!
                                 setLoader(true);
