@@ -1,15 +1,19 @@
 
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { IoMdEyeOff, IoMdEye } from "react-icons/io";
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
 import { userLoginInfo } from '../Slices/userSlice';
+import { getDatabase, ref, set } from "firebase/database";
+import { document } from 'postcss';
 
 
 const Login = () => {
+    // let reference= useRef();
     const auth = getAuth();
+    const db = getDatabase();
     const provider = new GoogleAuthProvider();
     let dispatch= useDispatch();
     let navigate = useNavigate();
@@ -25,12 +29,18 @@ const Login = () => {
     let handleGoogleLogin = () => {
         signInWithPopup(auth, provider)
             .then((result) => {
+                // sending login information to databasen
+                set(ref(db, 'users/' + result.user.uid), {
+                    fullname: result.user.displayName,
+                    email: result.user.email,
+                    profile_picture : result.user.photoURL
+                  });
                 console.log(result)
                 navigate('/Home')
-            }).catch((error) => {
+            })
+            .catch((error) => {
                 console.log(error.code)
             });
-
     }
     let handleEmail = (e) => {
         setEmail(e.target.value)
@@ -43,7 +53,6 @@ const Login = () => {
         setPassworderr('')
     }
     let handleLogin = () => {
-
         if (!email) {
             setEmailerr("Email is required")
         }
@@ -90,6 +99,18 @@ const Login = () => {
                 });
         }
     }
+    // This portion was designed for vanish forget modal window after clicking outside the div
+    // ----------------------------------------------------------------------------------------
+    // useEffect(()=>{
+    //     document.body.addEventListner('click',function(e) {
+    //         if(ref.current.contains(e.target)){
+    //             setForgetModal(true);
+    //         }
+    //         else{
+    //             setForgetModal(false)
+    //         }
+    //     })
+    // },[])
     return (
         <div className='flex'>
             {/* ---------------------------Image Div-------------------------------- */}
@@ -171,7 +192,7 @@ const Login = () => {
 
             {forgetModal &&
                 <div className='w-full h-screen bg-[rgba(0,0,0,.7)] absolute top-0 left-0 flex justify-center items-center'>
-                    <div className='w-[400px] h-[220px] bg-[#C2BBFF] rounded-lg p-6'>
+                    <div ref={reference} className='w-[400px] h-[220px] bg-[#C2BBFF] rounded-lg p-6'>
                         <h1 className=' font-nunito text-2xl text-darkblue'>Reset Password</h1>
                         <input onChange={handleForgetInput} className=' border border-1 rounded-lg mt-4 p-4 border-solid border-darkblue w-[350px] font-nunito font-semibold text-xl text-darkblue ' type="email" placeholder='Enter your email' />
                         <p className='bg-red-500 text-sm text-white rounded-b-lg w-[350px] pl-5'>

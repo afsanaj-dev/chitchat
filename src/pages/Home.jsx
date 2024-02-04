@@ -49,10 +49,10 @@ const Home = () => {
             <div className='flex flex-wrap gap-4 m-5'>
               <Friend />
               <Group />
-              <BlockList />
+              <UserList />
               <FriendRequest />
               <GroupRequest />
-              <UserList />
+              <BlockList />
             </div>
           </div>
         </div>
