@@ -12,6 +12,7 @@ import { getDownloadURL, getStorage, ref, uploadBytes, uploadString } from "fire
 import { getAuth, updateProfile } from "firebase/auth";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
   //--------------- const portion for image cropper
@@ -25,14 +26,14 @@ const Sidebar = () => {
   const [imageModal, setImageModal] = useState(false);
   // const [imageUrl, setImageUrl] = useState("");
   let data = useSelector((state) => state.userLoginInfo.userInfo);
-  let [cropModal,setCropModal]= useState(false);
+  let [cropModal, setCropModal] = useState(false);
   // console.log(data);
   let name = localStorage.getItem("name");
   const handleImageModal = () => {
     setImageModal(true);
   }
-  
-  let handleClose =()=>{
+
+  let handleClose = () => {
     setImageModal(false);
     setCropData('');
     setImage('');
@@ -119,7 +120,9 @@ const Sidebar = () => {
       </div>
       <div className='flex flex-col gap-4 justify-center items-center '>
         <div className='text-3xl text-white flex justify-center items-center bg-skyblue w-14 h-14  rounded-lg mr-5 mb-4'>
-          <IoHomeOutline />
+          <Link to='/home'>
+            <IoHomeOutline />
+          </Link>
         </div>
         <div className='text-3xl  text-darkblue w-14 h-14  rounded-lg'>
           <TiMessages />
@@ -152,24 +155,24 @@ const Sidebar = () => {
               </label>
             </div> */}
             <input onChange={handleProPic} type="file" />
-            {cropModal &&            
-            (<Cropper
-              ref={cropperRef}
-              style={{ height: 400, width: "100%" }}
-              zoomTo={0.5}
-              initialAspectRatio={1}
-              preview=".img-preview"
-              src={image}
-              viewMode={1}
-              minCropBoxHeight={10}
-              minCropBoxWidth={10}
-              background={false}
-              responsive={true}
-              autoCropArea={1}
-              checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
-              guides={true}
-            />
-            )}
+            {cropModal &&
+              (<Cropper
+                ref={cropperRef}
+                style={{ height: 400, width: "100%" }}
+                zoomTo={0.5}
+                initialAspectRatio={1}
+                preview=".img-preview"
+                src={image}
+                viewMode={1}
+                minCropBoxHeight={10}
+                minCropBoxWidth={10}
+                background={false}
+                responsive={true}
+                autoCropArea={1}
+                checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
+                guides={true}
+              />
+              )}
 
             <button onClick={getCropData} className='w-full mt-4 py-3  bg-purple text-white rounded-md font-nunito text-xl'>Upload</button>
           </div>
