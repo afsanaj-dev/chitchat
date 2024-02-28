@@ -37,7 +37,7 @@ const Home = () => {
       {data.emailVerified ?
         <div className='flex'>
           <div className='w-[13%] h-screen  bg-cover  bg-no-repeat'>
-            <Sidebar />
+            <Sidebar active='Home'/>
           </div>
           <div className='w-[87%] h-auto bg-fuchsia-200'>
             <div className='text-3xl text-slate-500 w-1/4 h-12 bg-white shadow-xl rounded-3xl ms-3 mt-3 flex gap-3 pt-2 ps-3'>

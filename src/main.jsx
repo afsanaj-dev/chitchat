@@ -11,6 +11,7 @@ import Home from './pages/Home.jsx';
 import { store } from './Store.js';
 import userSlice from './Slices/userSlice.js';
 import { Provider } from 'react-redux';
+import Message from './pages/Message.jsx';
 // import Test from '../Test.jsx';
 
 
@@ -27,10 +28,10 @@ const router = createBrowserRouter([
     path: "/Home",
     element: <Home />,
   },
-  // {
-  //   path: "/Login",
-  //   element: <Login/>,
-  // },
+  {
+    path: "/message",
+    element: <Message/>,
+  },
   {
     path: "/forgetpassword",
     element: <ForgetPassword />,

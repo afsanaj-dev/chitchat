@@ -45,7 +45,7 @@ const GroupRequest = () => {
         });
     }
     return (        
-        <div className='w-[30%] h-[380px] bg-violet-100 rounded-xl  p-5'>
+        <div className='w-[350px] h-[380px] bg-violet-100 rounded-xl  p-5'>
             <ToastContainer
                 position="top-right"
                 autoClose={2000}

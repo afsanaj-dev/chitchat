@@ -76,7 +76,7 @@ const UserList = () => {
     }
     return (
 
-        <div className='w-[30%] h-[380px] bg-violet-100 rounded-xl p-5'>
+        <div className='w-[350px] h-[380px] bg-violet-100 rounded-xl p-5'>
             {/* we can use the toasti container anywhere inside the div under return  */}
             <ToastContainer
                 position="top-right"

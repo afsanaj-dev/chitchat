@@ -45,7 +45,7 @@ const Friend = () => {
     }
   }
   return (
-    <div className='w-[30%] h-[380px] bg-violet-100 rounded-xl  p-5'>
+    <div className='w-[350px] h-[380px] bg-violet-100 rounded-xl  p-5'>
       <div className=' flex justify-between'>
         <h3 className='font-nova text-lg font-semibold text-darkblue'>
           Friends

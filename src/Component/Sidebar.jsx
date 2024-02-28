@@ -14,7 +14,7 @@ import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import { Link } from 'react-router-dom';
 
-const Sidebar = () => {
+const Sidebar = ({active}) => {
   //--------------- const portion for image cropper
   const [image, setImage] = useState("");
   const [cropData, setCropData] = useState("");
@@ -119,13 +119,15 @@ const Sidebar = () => {
         </div>
       </div>
       <div className='flex flex-col gap-4 justify-center items-center '>
-        <div className='text-3xl text-white flex justify-center items-center bg-skyblue w-14 h-14  rounded-lg mr-5 mb-4'>
-          <Link to='/home'>
+        <div className={active=="Home"? 'text-3xl text-white flex justify-center items-center bg-skyblue w-14 h-14  rounded-lg mr-5 mb-4' : 'text-3xl text-darkblue flex justify-center items-center w-14 h-14  rounded-lg mr-5 mb-4'}>
+          <Link to='/Home'>
             <IoHomeOutline />
           </Link>
         </div>
-        <div className='text-3xl  text-darkblue w-14 h-14  rounded-lg'>
-          <TiMessages />
+        <div className={active=="message"? 'text-3xl text-white flex justify-center items-center bg-skyblue w-14 h-14  rounded-lg mr-5 mb-4' : 'text-3xl text-darkblue flex justify-center items-center w-14 h-14  rounded-lg mr-5 mb-4'}>
+          <Link to='/message'>
+            <TiMessages />
+          </Link>
         </div>
         <div className='text-3xl text-darkblue w-14 h-14 rounded-lg'>
           <MdNotificationsActive />
